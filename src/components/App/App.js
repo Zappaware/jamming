@@ -11,8 +11,21 @@ class App extends React.Component {
   // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
-    this.state = {searchResults: []};
+    this.state = {
+      searchResults: [],
+      playlistName: 'Playlist',
+      playlistTracks: []
+    };
+    this.addTrack = this.addTrack.bind(this);
   }
+
+  addTrack(track) {
+    if(!this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
+      let newTrack = this.state.playlistTracks.push(track.id); 
+      this.setState({playlistTracks: newTrack});
+    }
+  }
+
   render() { 
     return (
     <div>
@@ -21,7 +34,7 @@ class App extends React.Component {
         <SearchBar />
         <div class="App-playlist">
           <SearchResults searchResults={this.state.searchResults}/>
-          <Playlist />
+          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
         </div>
       </div>
     </div>
